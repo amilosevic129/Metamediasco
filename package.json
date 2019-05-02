@@ -1,0 +1,30 @@
+{
+  "name": "bot_instagram_api",
+  "version": "1.0.0",
+  "description": "This is example using Node.js, Thread, instagram_api",
+  "main": "app/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app/server.js"
+  },
+  "keywords": [
+    "bot",
+    "instagram_api"
+  ],
+  "author": "sean_riese",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.4",
+    "ejs": "^2.6.1",
+    "events": "^3.0.0",
+    "express": "^4.16.4",
+    "express-ejs-layouts": "^2.5.0",
+    "http": "0.0.0",
+    "instagram-private-api": "^0.10.1",
+    "node-worker-threads-pool": "^1.0.4",
+    "path": "^0.12.7",
+    "pg": "^7.10.0"
+  }
+}
