@@ -3,6 +3,15 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
   <link rel="stylesheet" href="css/connect.css">
+  <!-- New chat design -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css'>
+
+  <link rel="stylesheet" href="css/style.css"> -->
+
+  
 </head>
 
 <body>
@@ -11,15 +20,18 @@
 <div class="image-container set-full-height" style="background-color: #fff">
 <!--   Big container   -->
 <div class="container">
-  <div class="alert">
+  <div class="alert alert_connect_instagram">
     <span>Succesfully Connected Instragm!</span>
-  </div>
+  </div> 
+  <div class="alert alert_hastag">
+      <span>Succesfully Saved Hashtags!</span>
+    </div> 
   <div class="row">
     <div class="col-sm-8 col-sm-offset-2">
     <!-- Wizard container -->
       <div class="wizard-container">
         <div class="card wizard-card" data-color="red" id="wizard">
-            <form action="/connectinstagram" method="get">
+            <!-- <form > -->
                 <div class="wizard-header">
                   <h3 class="wizard-title">
                   Connect Bot
@@ -37,7 +49,7 @@
                 </div>
 
                 <div class="tab-content">
-                <div class="tab-pane" id="connection">
+                <div class="tab-pane cont" id="connection">
                 <div class="row">
                   <div class="col-sm-12">
                     <img class="instalogo" src="img/instalogo.png" alt="">
@@ -50,9 +62,9 @@
                       <span class="input-group-addon">
                       <i class="fas fa-robot"></i>
                       </span>
-                      <div class="form-group label-floating">
+                      <div class="form-group label-floating botName">
                       <label class="control-label">Bot Name</label>
-                      <input name="botName" type="text" class="form-control">
+                      <input name="botName" type="text" class="form-control botName" value="" required>
                       </div>
                       </div>
 
@@ -63,7 +75,7 @@
                         </span>
                         <div class="form-group label-floating">
                           <label class="control-label">Respond Delay</label>
-                          <input value="11" name="delay" type="number" class="form-control">
+                          <input value="11" name="delay" type="number" class="form-control resdaly">
                         </div>
                       </div>
 
@@ -74,9 +86,9 @@
                       <span class="input-group-addon">
                         <i class="fas fa-user-circle"></i>
                       </span>
-                      <div class="form-group label-floating">
-                        <label class="control-label">Insta Username</label>
-                        <input name="instaName" type="text" class="form-control">
+                      <div class="form-group label-floating username">
+                        <label class="control-label ">Insta Username</label>
+                        <input name="instaName" type="text" class="form-control username" value="" required>
                       </div>
                     </div>
 
@@ -85,9 +97,9 @@
                       <span class="input-group-addon">
                         <i class="material-icons">lock_outline</i>
                       </span>
-                      <div class="form-group label-floating">
+                      <div class="form-group label-floating password">
                         <label class="control-label">Insta Password</label>
-                        <input name="instaPass" type="password" class="form-control">
+                        <input name="instaPass" type="password" class="form-control password" value="" required>
                       </div>
                     </div>
                   </div>
@@ -97,30 +109,31 @@
 
                   <div class="pull-right">
                     <button class="connectInstaBtn" id="getButton" onclick="getConnectInsta()">Connect</button>
+                    <button class="connectInstaBtn" id="getButton" onclick="postComment()">Post comment</button>
                   </div>
                 </div>
-              </form>
+              <!-- </form> -->
           </div>
 
           <!-- // filters tab -->
           <div class="tab-pane" id="filters">
             <h4 class="info-text">Hashtag filters</h4>
             <div class="row">
-                <form id="form-add-new-rank" class="form-horizontal">
-                  <div class="form-group">
+                <!-- <form id="form-add-new-rank" class="form-group"> -->
+                  <div class="form-group hastags">
                     <div class="col-sm-12">
                       <span class="input-label">Hashtags</span>
-                      <textarea name="rank_description" id="" cols="30" rows="4" placeholder="Rank Description" class="form-control">
-                      </textarea>
+                      <textarea name="rank_description" cols="30" rows="4" placeholder="Rank Description" class="form-control hastags"></textarea>
                     </div>
                   </div>
-                  <div class="form-group">
+                  <div class="col-sm-12">
+                    <button id="hastagBtn" class="connectInstaBtn"  onclick="saveHastag()">Save</button>
                   </div>
-                </form>
+                <!-- </form> -->
             </div>
           </div>
           <!-- // comments tab -->
-          <div class="tab-pane" id="comments">
+          <!-- <div class="tab-pane" id="comments">
             <h4 class="info-text">Add Comments</h4>
             <div class="chat">
               <div class="chat-title">
@@ -135,38 +148,60 @@
               </div>
 
             </div>
-          </div>
+          </div> -->
+          <!-- New chat design -->
+            <div class="chat tab-pane"   id="comments">
+             
+              <div class="chat-title">
+                <h1>Fabio Ottaviani</h1>
+                <h2>Comments</h2>
+                <figure class="avatar">
+                  <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure>
+              </div>
+              <div class="messages">
+                <div class="messages-content-custom">
+             
+                </div>
+              </div>
+              <div class="message-box">
+                <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
+                <button type="submit" class="message-submit">Send</button>
+              </div>
+            
+            </div>
           <!-- // default replies tab -->
-          <div class="tab-pane" id="replies">
-              <h4 class="info-text">Set default dialog</h4>
-              <div class="chat">
-                <div class="chat-title">
-                  <h1>User</h1>
+          <div class="chat tab-pane" id="replies" >
+            
+              <div class="chat-title">
+                  <h1>Fabio Ottaviani</h1>
+                  <h2>Replies</h2>
+                  <figure class="avatar">
+                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure>
                 </div>
                 <div class="messages">
-                  <div class="messages-content"></div>
+                  <div class="messages-content111"></div>
                 </div>
                 <div class="message-box">
-                  <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
-                  <button type="submit" class="message-submit">Send</button>
+                  <textarea type="text" class="replies-message-input" placeholder="Type message..."></textarea>
+                  <button type="submit" class="replies-message-submit">Send</button>
                 </div>
-
-              </div>
-              <div class="bg"></div>
 
             </div>
 
             <!-- // activity settings tab -->
-            <div class="tab-pane" id="activity">
-                <h4 class="info-text">Set activity settings</h4>
-                <form id="form-add-new-product" class="form-horizontal">
-                    <div class="form-group">
+            <div class="tab-pane" id="activity" >
+              <h4 class="info-text">Set activity settings</h4>
+                <!-- <form id="form-add-new-product" class="form-horizontal"> -->
+                    <div class="form-group maxcmmdaliy">
                       <div class="col-sm-12">
                         <span class="input-label">Max Comments Daily</span>
-                        <input type="number" name="commentsDaily" required="required" class="form-control">
+                        <input type="number" name="commentsDaily" required="required" value ="" class="form-control" id="maxcmmdaliy">
                       </div>
                     </div>
-                </form>
+                    <div class="pull-right">
+                        <button class="maxcmmdaliy" id="getButton" onclick="saveMaxCmmDaily()">Save</button>
+                      </div>
+                <!-- </form> -->
             </div>
         </div>
 
@@ -189,8 +224,8 @@
 </div> <!-- row -->
 
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
 <script  src="js/connect.js"></script>
 
