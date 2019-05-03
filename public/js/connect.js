@@ -172,34 +172,36 @@ $('.message-input').keypress(function(e){
 });
 
 
-var $messages = $('.messages-content'),
-	d, h, m,
-	i = 0;
+ var $messages = $('.messages-content'),
+    d, h, m,
+    i = 0;
 
-	$(window).on('load', function() {
-		$messages.mCustomScrollbar();
-					setTimeout(function() {
-					fakeMessage();
-		}, 100);
-	});
+$(window).on('load', function() {
+  $messages.mCustomScrollbar();
+  setTimeout(function() {
+    fakeMessage();
+  }, 100);
+});
 
-	function updateScrollbar() {
-					$messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo', 'bottom', {
-					scrollInertia: 10,
-					timeout: 0
-		});
-	}
+function updateScrollbar() {
+  $messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo', 'bottom', {
+    scrollInertia: 10,
+    timeout: 0
+  });
+}
 
-	function setDate(){
-			d = new Date()
-			if (m != d.getMinutes()) {
-								m = d.getMinutes();
-								$('<div class="timestamp">' + d.getHours() + ':' + m + '</div>').appendTo($('.message:last'));
-		}
-	}
+function setDate(){
+  d = new Date()
+  if (m != d.getMinutes()) {
+    m = d.getMinutes();
+    $('<div class="timestamp">' + d.getHours() + ':' + m + '</div>').appendTo($('.message:last'));
+  }
+}
+
+
 
 $(window).on('keydown', function(e) {
-  if (e.which == 13) {  
+  if (e.which == 13) {
     insertMessage();
     return false;
   }
@@ -223,7 +225,7 @@ var Fake = [
   ':)'
 ]
 
-function fakeMessage() { 
+function fakeMessage() {
   if ($('.message-input').val() != '') {
     return false;
   }

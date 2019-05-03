@@ -6,17 +6,17 @@ var config = module.exports;
 // Server setting.
 config.server = {
     HTTP_HOST:"localhost",
-    port: 8081
+    port: 8000
 }
 
 // Database setting.
 config.db = {
     DATABASE_HOST : "localhost",
-    DATABASE_PORT : 5433,
-    DATABASE_NAME : "postgres",
-    DATABASE_USER : "postgres",
-    DATABASE_PASSWORD : "wkrkdfur129",
-    DATABASE_URL  : "postgres://postgres:wkrkdfur129@localhost:5433/postgres"
+    DATABASE_PORT : 5432,
+    DATABASE_NAME : "metabot",
+    DATABASE_USER : "juansebastianmisas-camargo",
+    DATABASE_PASSWORD : "juanchan",
+    DATABASE_URL  : "postgres://juansebastianmisas-camargo:juanchan@localhost:5432/metabot"
 }
 
 // Api connection setting.
