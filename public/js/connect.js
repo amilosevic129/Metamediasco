@@ -6,22 +6,170 @@
  * Supports Bootstrap 2.2.x, 2.3.x, 3.0
  * Dual licensed under the MIT and GPL licenses:
  */
- 
- function getConnectInsta() {
-	 $('.loadingDiv').show();
-	 $.ajax({
-		 type: 'GET',
-		 url: 'connectinstagram',
-		 dataType: 'json',
-		 success: function(result) {
-			 console.log(result);
-      	$('.alert').show().html(result.status);
-		 },
-		 error: function(result) {
-        console.log(result);
-    	}
-	 });
+//  Conncet to instagram
+var botName = "";
+function getConnectInsta() {
+	var botName  = $("input.botName").val();
+	var username = $("input.username").val();
+	var password = $("input.password").val();
+	var resdaly  = $("input.resdaly").val();
+
+	if(!botName)	$("div.botName").addClass("is-focused");
+	if(!username) $("div.username").addClass("is-focused");
+	if(!password) $("div.password").addClass("is-focused");
+
+	if(botName && username && password){
+		$('.loadingDiv').show();
+			$.ajax({
+				type : 'POST',
+				url  : 'api/connectinstagram',
+				data : {
+					botname  :  botName, 
+					username : username,
+					password : password,
+					resdaly  : resdaly
+				},
+			dataType     : 'json',
+			success: function(result) {
+				
+					$('.alert_connect_instagram').fadeIn('fast').delay(1000).fadeOut('fast');
+					$('.loadingDiv').hide();
+			},
+			error: function(result) {
+				$("#alert").html = "Disconnected Instragm!";
+				 $('.loadingDiv').hide();
+					console.log(result);
+				}
+		});
+	}
+}
+//  Save HAstag
+ function saveHastag(){
+	 let tags = $("textarea.hastags").val();
+	 if(tags=="")	$("div.hastags").addClass("is-focused");
+	 else{  
+		 let res  = new Array;
+		 let info = new Array;
+		      res = tags.split(",");
+		 $.ajax({
+						type : "post",
+						url  : 'api/savetags',
+						data : { data : res},
+				success : function(result){
+						alert("Inserted Hastages Successfully!");
+						$('.alert_tags').fadeIn('fast').delay(1000).fadeOut('fast');
+						$('.loadingDiv').hide();
+				},
+				error : function(result){
+					console.log(result);
+				}
+		 })
+	 }
  }
+
+/*
+* InsertMessage-comm
+* @params
+*       data :msg
+*/
+function insertMessage(msg, url) {
+ 
+  if ($.trim(msg) == '') {
+    return false;
+  }
+  saveComments(msg,url);
+	$('<div class="message message-personal">' + msg + '</div>').appendTo($('.mCSB_container')).addClass('new');
+  setDate();
+  $('.message-input').val(null);
+  updateScrollbar();
+  setTimeout(function() {
+    fakeMessage();
+  }, 1000 + (Math.random() * 20) * 100);
+}
+/*
+* saveMaxCmmDaily
+* @params
+*       data :saveMaxCmmDaily
+*/
+function saveMaxCmmDaily(){
+	var msg = $('#maxcmmdaliy').val();
+  var url = '/api/savemaxcmmdaily';
+	// insertMessage(msg,url);
+ if(!msg) $(".maxcmmdaliy").addClass("is-focused");
+ else{
+	 saveComments(msg, url);
+ }
+}
+/*
+* saveComments
+* @params
+*       data :msg
+*/
+function saveComments(msg,url){
+	$.ajax({
+		type : "GET",
+		url  : url,
+		data: {
+						comment: msg
+					},
+	success : function(result){
+				alert("Inserted Msg Successfully!");
+				$('.alert_tags').fadeIn('fast').delay(1000).fadeOut('fast');
+				$('.loadingDiv').hide();
+	},
+	error : function(result){
+			console.log(result);
+		}
+	})
+}
+/*
+* postComment
+* @params
+*       data :msg
+*/
+function postComment(url){
+	$.ajax({
+		type : "GET",
+		url  : '/api/postcomment',
+		// data: {
+		// 				comment: msg
+		// 			},
+	success : function(result){
+				alert("Inserted Msg Successfully!");
+				$('.alert_tags').fadeIn('fast').delay(1000).fadeOut('fast');
+				$('.loadingDiv').hide();
+	},
+	error : function(result){
+			console.log(result);
+		}
+	})
+}
+$('.message-submit').click(function() {
+	var msg = $('.message-input').val();
+  var url = '/api/savecomment';
+	insertMessage(msg,url);
+  
+});
+$('.replies-message-submit').click(function(){  
+	var msg = $('.replies-message-input').val();
+  var url = '/api/savereply';
+	insertMessage(msg,url);
+});
+$('.replies-message-input').keypress(function(e){
+ 
+	if(e.which == 13){ 
+					var msg = $('.replies-message-input').val();
+					var url = '/api/savereply';
+					insertMessage(msg,url);
+	}
+});
+$('.message-input').keypress(function(e){
+
+	if(e.which == 13){ 
+					var msg = $('.message-input').val();
+					var url = '/api/savecomment';
+					insertMessage(msg,url);	}
+});
 
 
  var $messages = $('.messages-content'),
@@ -50,23 +198,6 @@ function setDate(){
   }
 }
 
-function insertMessage() {
-  msg = $('.message-input').val();
-  if ($.trim(msg) == '') {
-    return false;
-  }
-  $('<div class="message message-personal">' + msg + '</div>').appendTo($('.mCSB_container')).addClass('new');
-  setDate();
-  $('.message-input').val(null);
-  updateScrollbar();
-  setTimeout(function() {
-    fakeMessage();
-  }, 1000 + (Math.random() * 20) * 100);
-}
-
-$('.message-submit').click(function() {
-  insertMessage();
-});
 
 $(window).on('keydown', function(e) {
   if (e.which == 13) {
